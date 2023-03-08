@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import UserModel from '../models/User.js';
 
 // Resgister User
-const register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const {
       firstName,
@@ -37,12 +37,12 @@ const register = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
-export default register;
 
-//Login In
-const login = async (req, res) => {
+// Login In
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const user = await UserModel.findOne({ email: email });
     if (!user) return res.status(400).json({ msg: 'USER NOT EXIST' });
 
@@ -51,9 +51,21 @@ const login = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     delete user.password;
-    res.send(200).json({ token, user });
+    console.log('login successful  from sever');
+    res.status(200).json({ token, user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
 
+
+
+// export const login = async (req, res) => {
+//   try {
+//     console.log('Got the details ');
+//     console.log(req.body);
+//     res.send({'hello': 'world'});
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }

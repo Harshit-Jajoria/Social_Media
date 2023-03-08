@@ -1,4 +1,4 @@
-import { Face6, Mail, Notifications } from '@mui/icons-material';
+import { DarkMode, Face6, Mail, Notifications } from '@mui/icons-material';
 import {
   AppBar,
   Avatar,
@@ -13,18 +13,21 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { setMode, setLogout } from "state";
+import { useNavigate } from "react-router-dom";
 
 const StyledToolbar = styled(Toolbar)({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  
 });
 
 const Search = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-   backgroundColor: 'white',
   padding: '0 10px',
+  backgroundColor: 'white',
   borderRadius: theme.shape.borderRadius,
   width: '40%',
 }));
@@ -32,7 +35,8 @@ const Search = styled('div')(({ theme }) => ({
 const Icons = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: '20px',
+  gap: '30px',
+  marginRight:'30px'
   // [theme.breakpoints.up('sm')]: {
   //   display: 'flex',
   // },
@@ -46,8 +50,14 @@ const UserBox = styled(Box)(({ theme }) => ({
   //   display: 'none',
   // },
 }));
-const Navbar = ({mode,setMode}) => {
+const Navbar = () => {
   const [isopen, issetOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const url=process.env.REACT_APP_BACKEND_URL;
+  const user = useSelector((state) => state.user);
+  console.log(`${url}/assets/${user.picturePath}`);
+
   return (
     <AppBar position="sticky" sx={{ flexGrow:1, overflowX: 'hidden'}} >
       <StyledToolbar >
@@ -55,16 +65,20 @@ const Navbar = ({mode,setMode}) => {
           Social Connect
         </Typography>
         <Face6 sx={{ display: { xs: 'block', sm: 'none' } }} />
-        <Search>
+        <Search 
+         bgcolor={"background.default"}
+         color={"text.primary"}>
           <InputBase
             sx={{
               width: '100%',
+              color:'black'
             }}
             placeholder="search..."
           />
           <SearchIcon sx={{ color: 'black' }} />
         </Search>
         <Icons sx={{ display: { xs: 'none', sm: 'flex' } }}>
+          <DarkMode onClick={() => dispatch(setMode())} />
           <Badge badgeContent={123} color="error">
             <Mail />
           </Badge>
@@ -73,7 +87,7 @@ const Navbar = ({mode,setMode}) => {
           </Badge>
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={`${url}/assets/${user.picturePath}`}
             onClick={(e) => issetOpen(true)}
           />
         </Icons>
@@ -83,9 +97,9 @@ const Navbar = ({mode,setMode}) => {
         >
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={`${url}/assets/${user.picturePath}`}
           />
-          <Typography variant="span">John</Typography>
+          <Typography variant="span">{user.firstName} </Typography>
         </UserBox>
       </StyledToolbar>
       <Menu

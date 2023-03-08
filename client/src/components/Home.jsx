@@ -5,7 +5,7 @@ import Navber from './Navbar';
 const Home = ({ mode, setMode }) => {
   return (
     <Box m={-1} sx={{overflowX:'hidden'}}>
-      <Navber mode={mode} setMode={setMode} />
+      <Navber/>
     </Box>
   );
 };
