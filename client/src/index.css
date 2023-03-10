@@ -11,4 +11,5 @@ body {
   /* Add this line to hide horizontal scroll */
   overflow-x: hidden;
   margin: 0;
+  position:;
 }
