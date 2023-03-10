@@ -4,10 +4,8 @@ import React from 'react';
 const Leftbar = () => {
   const styles = {
     typo: { 
-      display: 'flex',
-     
-      margin:'auto',
-      // textAlign: 'center', 
+      display: '',
+      textAlign: 'center', 
     },
   };
   return (
