@@ -3,7 +3,7 @@ import React from 'react'
 
 const Feed = () => {
   return (
-    <Box bgcolor="yellow" flex={8} p={2}>
+    <Box bgcolor="yellow" sx={{width:"60%"}} p={2}>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi unde exercitationem facilis possimus enim ex quos quia necessitatibus! Eius vero delectus quas. Voluptatibus ullam eligendi vero error in maxime veniam.
         Officiis, aliquid cum! Nostrum obcaecati soluta asperiores ipsa laborum incidunt explicabo doloremque suscipit in quas tempore ea, animi assumenda, dignissimos veritatis ex adipisci ullam rerum iste eveniet dolore. Delectus, error.
         Cum, odio, placeat possimus vero beatae hic accusantium nemo a, est aut ab aliquam eos. Corporis et illum, distinctio reprehenderit ex eos hic dolorum ut voluptatibus. Sapiente magnam quisquam possimus.

@@ -8,12 +8,12 @@ import Rightbar from './Rightbar';
 
 const Home = ({ mode, setMode }) => {
   return (
-    <Box m={-1} sx={{overflowX:'hidden'}}>
-      <Navber/>
+    <Box m={-1} sx={{ overflowX: 'hidden' }}>
+      <Navber />
       <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Leftbar/>
-        <Feed/>
-        <Rightbar/>
+        <Leftbar userId={'6408a0c6e25c0060f7031d0e'}/>
+        <Feed />
+        <Rightbar />
       </Stack>
     </Box>
   );
