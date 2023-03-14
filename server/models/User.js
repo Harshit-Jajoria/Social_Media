@@ -32,6 +32,18 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    linkedIn: {
+      type: String,
+      min: 3,
+      max: 50,
+      default: '',
+    },
+    github: {
+      type: String,
+      min: 3,
+      max: 50,
+      default: '',
+    },
     location: String,
     occupation: String,
     viewedProfile: Number,

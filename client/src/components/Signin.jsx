@@ -106,7 +106,7 @@ const Signin = () => {
           })
         );
         onSubmitProps.resetForm();
-        console.log(loggedIn);
+        // console.log(loggedIn);
         toast.success('Logged in successfully', {
           position: 'top-center',
           pauseOnHover: true,

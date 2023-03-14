@@ -56,7 +56,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const url=process.env.REACT_APP_BACKEND_URL;
   const user = useSelector((state) => state.user);
-  console.log(`${url}/assets/${user.picturePath}`);
+  // console.log(`${url}/assets/${user.picturePath}`);
 
   return (
     <AppBar position="sticky" sx={{ flexGrow:1, overflowX: 'hidden'}} >

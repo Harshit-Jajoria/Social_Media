@@ -197,7 +197,7 @@ const Signup = () => {
         `${url}/auth/register`,
         formData
       );
-      console.log(savedUser.data);
+      // console.log(savedUser.data);
       onSubmitProps.resetForm();
       toast.success('Account Creaated Successfully', {
         position: 'top-center',

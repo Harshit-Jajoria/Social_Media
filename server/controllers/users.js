@@ -1,7 +1,17 @@
-import User from "../models/User.js";  // user model
+import User from '../models/User.js'; // user model
 
 /* READ */
-export const getUser = async (req, res) => {
+
+export const getUsers = async (req, res) => { 
+  try {
+    const user = await User.find();
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const getUser = async (req, res) => { 
   try {
     const { id } = req.params;
     const user = await User.findById(id);
@@ -31,6 +41,28 @@ export const getUserFriends = async (req, res) => {
 };
 
 /* UPDATE */
+export const updateLinks = async (req, res) => {
+  const { id } = req.params;
+  const {linkedIn,github} = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, { linkedIn, github }, { new: true });
+    return res.status(200).json(updatedUser);
+  } catch (err) {
+    return res.status(404).json(err);
+  }
+};
+// export const updateLinks = async (req, res) => { // CHAT GPT
+//   const { id } = req.params;
+//   const { linkedIn, github } = req.body;
+//   try {
+//     const updatedUser = await User.findByIdAndUpdate(id, { linkedIn, github }, { new: true });
+//     console.log('PUT request -- updated user:', updatedUser);
+//     return res.status(200).json(updatedUser);
+//   } catch (err) {
+//     console.error('PUT request -- error updating user:', err);
+//     return res.status(500).json({ error: 'Error updating user' });
+//   }
+// };
 export const addRemoveFriend = async (req, res) => {
   try {
     const { id, friendId } = req.params;
