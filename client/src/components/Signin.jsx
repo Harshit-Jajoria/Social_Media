@@ -91,6 +91,7 @@ const Signin = () => {
       //   body: JSON.stringify(values),
       // });
       const url=process.env.REACT_APP_BACKEND_URL;
+      console.log(`${url}/auth/login`);
 
       try {
         const loggedInResponse = await axios.post(
@@ -115,9 +116,10 @@ const Signin = () => {
           navigate('/home');
         }, 2000);
       } catch (error) {
-        toast.error(error.response.data.msg, {
-          position: 'top-center',
-        });
+        // toast.error(error.response.data.msg, {
+        //   position: 'top-center',
+        // });  
+        console.log(error);
       }
     },
   });

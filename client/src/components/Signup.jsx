@@ -192,20 +192,27 @@ const Signup = () => {
       //     body: formData,
       //   }
       // );
-      const url=process.env.REACT_APP_BACKEND_URL;
-      const savedUser = await axios.post(
-        `${url}/auth/register`,
-        formData
-      );
-      // console.log(savedUser.data);
-      onSubmitProps.resetForm();
-      toast.success('Account Creaated Successfully', {
-        position: 'top-center',
-        pauseOnHover: true,
-      });
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
+      const url = process.env.REACT_APP_BACKEND_URL;
+      // const url = 'https://social-media-git-main-harshit-jajoria.vercel.app';
+      console.log(`${url}/auth/register`);
+      try {
+        // const savedUser = await axios.post(`${url}/auth/register`, formData);
+        const savedUserResponse = await fetch(`${url}/auth/register`, {
+          method: 'POST',
+          body: formData,
+        });
+         console.log(savedUserResponse.data);
+        onSubmitProps.resetForm();
+        toast.success('Account Creaated Successfully', {
+          position: 'top-center',
+          pauseOnHover: true,
+        });
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -363,22 +370,23 @@ const Signup = () => {
             Sign Up
           </Button>
         </form>
-        <Typography 
-        variant='h6'
-        sx={{
-          color:'#4665e0',
-          textDecoration: 'underline',
-          '&:hover':{
-            cursor:'pointer',
-          }
-        }}
-        onClick={()=>{
-          navigate('/')
-        }}
+        <Typography
+          variant="h6"
+          sx={{
+            color: '#4665e0',
+            textDecoration: 'underline',
+            '&:hover': {
+              cursor: 'pointer',
+            },
+          }}
+          onClick={() => {
+            navigate('/');
+          }}
         >
-          Already have an account , Sign here </Typography>
+          Already have an account , Sign here{' '}
+        </Typography>
       </Paper>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
