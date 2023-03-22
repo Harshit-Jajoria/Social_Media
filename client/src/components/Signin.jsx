@@ -116,9 +116,9 @@ const Signin = () => {
           navigate('/home');
         }, 2000);
       } catch (error) {
-        // toast.error(error.response.data.msg, {
-        //   position: 'top-center',
-        // });  
+        toast.error(error.response.data.msg, {
+          position: 'top-center',
+        });  
         console.log(error);
       }
     },

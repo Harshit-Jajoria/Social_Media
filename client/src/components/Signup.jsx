@@ -83,6 +83,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import uploadImage from '../firebase/uploadImage';
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().min(2).max(25).required('required'),
@@ -180,30 +181,35 @@ const Signup = () => {
       let formData = new FormData();
 
       for (let value in values) {
-        if (value !== 'confirmPassword') formData.append(value, values[value]);
+        if (value !== 'confirmPassword' || value !== 'picture')
+          formData.append(value, values[value]);
       }
-      formData.append('picturePath', values.picture.name);
-
-      // console.log(Array.from(formData));
-      // const savedUserResponse = await fetch(
-      //   "http://localhost:5000/auth/register",
-      //   {
-      //     method: "POST",
-      //     body: formData,
-      //   }
-      // );
-      const url = process.env.REACT_APP_BACKEND_URL;
-      // const url = 'https://social-media-git-main-harshit-jajoria.vercel.app';
-      console.log(`${url}/auth/register`);
+      const date = new Date();
+      const timestamp = date.toISOString();
+      const pictureName = `picture-${timestamp}-${values.picture.name}`;
       try {
-        // const savedUser = await axios.post(`${url}/auth/register`, formData);
-        const savedUserResponse = await fetch(`${url}/auth/register`, {
-          method: 'POST',
-          body: formData,
-        });
-         console.log(savedUserResponse.data);
+        // show a message to inform the user that the data is being uploaded
+        const loadingId = toast.loading('Uploading the data...', {
+          position: 'top-center',
+          pauseOnHover: true,
+          autoClose: false, // disable auto-close
+          color: 'yellow', 
+        })
+    
+        const res = await uploadImage(values['picture'], pictureName);
+        console.log(res);
+        formData.append('picturePath', res);
+    
+        const url = process.env.REACT_APP_BACKEND_URL;
+        const savedUser = await axios.post(`${url}/auth/register`, formData);
+        console.log(savedUser.data);
         onSubmitProps.resetForm();
-        toast.success('Account Creaated Successfully', {
+    
+        // dismiss the info message as soon as the savedUser is submitted successfully
+        toast.dismiss(loadingId);
+    
+        // show a success message if the data was added successfully
+        toast.success('Account Created Successfully', {
           position: 'top-center',
           pauseOnHover: true,
         });
@@ -213,6 +219,7 @@ const Signup = () => {
       } catch (error) {
         console.log(error);
       }
+    
     },
   });
 

@@ -87,7 +87,7 @@ const Navbar = () => {
           </Badge>
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src={`${url}/assets/${user.picturePath}`}
+            src={user.picturePath}
             onClick={(e) => issetOpen(true)}
           />
         </Icons>
@@ -97,7 +97,7 @@ const Navbar = () => {
         >
           <Avatar
             sx={{ width: 30, height: 30 }}
-            src={`${url}/assets/${user.picturePath}`}
+            src={user.picturePath}
           />
           <Typography variant="span">{user.firstName} </Typography>
         </UserBox>

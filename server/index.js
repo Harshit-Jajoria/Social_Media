@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
-import {register} from './controllers/auth.js';
+import { register } from './controllers/auth.js';
 import { createPost } from './controllers/posts.js';
 import { verifyToken } from './middleware/auth.js';
 import User from './models/User.js';
@@ -56,11 +56,10 @@ app.use('/post', postRoutes);
 mongoose.set('strictQuery', false);
 const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => {
-
   console.log(`Server is running on port number ${PORT} `);
 });
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.send(`Backend is running on port number ${PORT}`);
 });
 
@@ -72,8 +71,8 @@ mongoose
 
   .then(() => {
     console.log(`conneted to db`);
-    /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
+    // /* ADD DATA ONE TIME */
+    User.insertMany(users);
+    Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} -->  did not connect`));

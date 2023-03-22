@@ -58,7 +58,7 @@ const Feed = () => {
         <Box sx={{ display: 'flex' }}>
           <Avatar
             sx={{ height: '4.5rem', width: '4.5rem' }}
-            src={`${url}/assets/${user.picturePath}`}
+            src={user.picturePath}
           />
           <input
             type="text"
@@ -111,8 +111,8 @@ const Feed = () => {
           </Box>
         </Box>
       </Box>
-      {posts.map((p) => (
-        <Post post={p} />
+      {posts.map((p,i) => (
+        <Post key={i} post={p} />
       ))}
     </Box>
   );

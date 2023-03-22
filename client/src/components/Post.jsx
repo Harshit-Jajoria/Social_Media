@@ -50,7 +50,6 @@ const Post = (post) => {
     };
     getUser();
   }, []);
-
   if (!user) return null;
 
   return (
@@ -58,7 +57,7 @@ const Post = (post) => {
       <CardHeader
         avatar={
           <Avatar
-            src={`${url}/assets/${user.picturePath}`}
+            src={user.picturePath}
             sx={{ bgcolor: 'red' }}
             aria-label="recipe"
           ></Avatar>
@@ -74,7 +73,7 @@ const Post = (post) => {
       <CardMedia
         component="img"
         height="500rem"
-        image={`${url}/assets/${picturePath}`}
+        image={picturePath}
         alt="hello world"
       />
       <CardContent>

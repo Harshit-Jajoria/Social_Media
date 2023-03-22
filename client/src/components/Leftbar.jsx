@@ -71,13 +71,13 @@ const Leftbar = ({ userId }) => {
     // console.log(`${url}/users/${userId}`);
     // console.log(token);
     try {
-      const response = await axios.get(`${url}/users/${userId}`, {
+        const response = await axios.get(`${url}/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.data;
 
       setUser(data);
-      console.log(user);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +89,7 @@ const Leftbar = ({ userId }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(links);
+    // console.log(links);
     const response = await axios.put(`${url}/users/${userId}`, links);
     //  const data = await response.data;
     //console.log(response);
@@ -100,7 +100,7 @@ const Leftbar = ({ userId }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (
