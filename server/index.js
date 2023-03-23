@@ -72,7 +72,7 @@ mongoose
   .then(() => {
     console.log(`conneted to db`);
     // /* ADD DATA ONE TIME */
-    User.insertMany(users);
-    Post.insertMany(posts);
+    // User.insertMany(users);
+    // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} -->  did not connect`));
