@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User.js';
 
@@ -15,6 +15,7 @@ export const register = async (req, res) => {
       location,
       occupation,
     } = req.body;
+    console.log(req.body);
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -33,10 +34,11 @@ export const register = async (req, res) => {
       linkedIn:'',
       github:'',
     });
+
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {
-    // console.log(error);
+     console.log(error);
     return res.status(500).json({error});
   }
 };
@@ -45,11 +47,13 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
 
     const user = await UserModel.findOne({ email: email });
     if (!user) return res.status(400).json({ msg: 'USER NOT EXIST' });
 
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);
     if (!isMatch) return res.status(400).json({ msg: 'INVALID CREDENTIALS' });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -57,6 +61,7 @@ export const login = async (req, res) => {
     console.log('login successful  from sever');
     res.status(200).json({ token, user });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: error.message });
   }
 };

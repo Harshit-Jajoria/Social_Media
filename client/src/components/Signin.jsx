@@ -96,7 +96,12 @@ const Signin = () => {
       try {
         const loggedInResponse = await axios.post(
           `${url}/auth/login`,
-          values
+          values,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const loggedIn = await loggedInResponse.data;
 

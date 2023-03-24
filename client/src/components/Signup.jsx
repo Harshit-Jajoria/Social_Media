@@ -178,36 +178,56 @@ const Signup = () => {
     onSubmit: async (values, onSubmitProps) => {
       // Smjh nhi aaya ek baar formdata ki yt vdo dekh lio
       // this allows us to send form info with image
+      console.log(values);
+      // let formData = {};
+      // for (let value in values) {
+      //   if (value !== 'confirmPassword' && value !== 'picture') {
+      //     formData[value] = values[value];
+      //   }
+      // }
       let formData = new FormData();
 
       for (let value in values) {
-        if (value !== 'confirmPassword' || value !== 'picture')
+        if (value !== 'confirmPassword' &&  value !== 'picture')
           formData.append(value, values[value]);
       }
+
       const date = new Date();
       const timestamp = date.toISOString();
       const pictureName = `picture-${timestamp}-${values.picture.name}`;
+  
       try {
         // show a message to inform the user that the data is being uploaded
         const loadingId = toast.loading('Uploading the data...', {
           position: 'top-center',
           pauseOnHover: true,
           autoClose: false, // disable auto-close
-          color: 'yellow', 
-        })
-    
+          color: 'yellow',
+        });
+
         const res = await uploadImage(values['picture'], pictureName);
         console.log(res);
         formData.append('picturePath', res);
-    
+        console.log(formData)
+        // formData['picturePath'] = res;
+
+        // for (const pair of formData.entries()) {
+        //   console.log(`${pair[0]}, ${pair[1]}`);
+        // }
+
         const url = process.env.REACT_APP_BACKEND_URL;
-        const savedUser = await axios.post(`${url}/auth/register`, formData);
+        const savedUser = await axios.post(`${url}/auth/register`, formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         console.log(savedUser.data);
         onSubmitProps.resetForm();
-    
+
         // dismiss the info message as soon as the savedUser is submitted successfully
         toast.dismiss(loadingId);
-    
+
         // show a success message if the data was added successfully
         toast.success('Account Created Successfully', {
           position: 'top-center',
@@ -219,7 +239,6 @@ const Signup = () => {
       } catch (error) {
         console.log(error);
       }
-    
     },
   });
 
