@@ -34,22 +34,22 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 // };
 // app.use(cors(corsOptions));
 app.use(cors({ origin: '*' }));
-app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
+// app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
-// File Storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/assets');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage });
+// // File Storage
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'public/assets');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
+// const upload = multer({ storage });
 
 // Routes with Files -- this route because of uploading of file
-app.post('/auth/register', upload.single('picture'), register);
-app.post('/post', verifyToken, upload.single('picture'), createPost);
+app.post('/auth/register',register);
+app.post('/post', verifyToken,createPost);
 
 //Routes -- Seprate
 app.use('/auth', authRoutes);
