@@ -104,6 +104,7 @@ const Signin = () => {
           }
         );
         const loggedIn = await loggedInResponse.data;
+        console.log(loggedIn);
 
         dispatch(
           setLogin({

@@ -118,7 +118,7 @@ const Navbar = () => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={() => dispatch(setLogout())}>Logout</MenuItem>
       </Menu>
     </AppBar>
   );

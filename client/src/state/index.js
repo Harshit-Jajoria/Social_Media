@@ -12,7 +12,7 @@ export const authSlice = createSlice({
   reducers: {
     setMode: (state) => {
       // In this case we don not need to use the spread operator beacause toolkit say
-      //just change the value you want to change i will handle the other values
+      //just change the value you want to change i will handle the other values bcoz it uses immer library
       state.mode = state.mode === 'light' ? 'dark' : 'light';
     },
 

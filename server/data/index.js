@@ -27,7 +27,7 @@ export const users = [
     impressions: 888822,
     createdAt: 1115211422,
     updatedAt: 1115211422,
-    __v: 0,
+    __v: 0, 
   },
   {
     _id: userIds[1],

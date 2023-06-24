@@ -25,4 +25,4 @@ const uploadImage = async (image, path) => {
   });
 };
 
-export default uploadImage;
+export default uploadImage;

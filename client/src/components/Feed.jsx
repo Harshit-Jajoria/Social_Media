@@ -8,7 +8,7 @@ import { Avatar, Box, Button, Divider, Typography } from '@mui/material';
 import axios from 'axios';
 import Post from 'components/Post';
 import Post_Card from 'components/Post';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const Feed = () => {
@@ -16,17 +16,28 @@ const Feed = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const [posts, setPosts] = useState(null);
+  const [text, setText] = useState("");
+  const textAreaRef = useRef(null);
 
+  
   const styles = {
-    input: {
+    textarea: {
       width: '85%',
       border: '0.2rem solid black',
       borderRadius: '2rem',
       marginLeft: '1rem',
       fontSize: '1.5rem',
       paddingLeft: '1.5rem',
+      resize:'none'
     },
   };
+
+  function handleTextAreaInput() {
+    const textarea = textAreaRef.current;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+    setText(textarea.value);
+  }
   const getPosts = async () => {
     try {
       const response = await axios.get(`${url}/post`, {
@@ -60,10 +71,12 @@ const Feed = () => {
             sx={{ height: '4.5rem', width: '4.5rem' }}
             src={user.picturePath}
           />
-          <input
-            type="text"
-            style={styles.input}
-            placeholder="What on your mind  "
+          <textarea
+            style={styles.textarea}
+            value={text}
+            rows={1}
+            ref={textAreaRef}
+            onInput={handleTextAreaInput}
           />
         </Box>
         <Divider
@@ -111,7 +124,7 @@ const Feed = () => {
           </Box>
         </Box>
       </Box>
-      {posts.map((p,i) => (
+      {posts.map((p, i) => (
         <Post key={i} post={p} />
       ))}
     </Box>
